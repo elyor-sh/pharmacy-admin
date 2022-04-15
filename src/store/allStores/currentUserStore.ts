@@ -12,7 +12,6 @@ export class CurrentUserStore {
 
     user: IUser | null = localStorage.getItem('currentUserPh') ? JSON.parse(localStorage.getItem('currentUserPh') || '{}') : null
     token: string = localStorage.getItem('token') || ''
-    error: string | null = null
 
     constructor() {
         makeAutoObservable(this)
@@ -29,9 +28,7 @@ export class CurrentUserStore {
                 localStorage.setItem('token', response.data.token)
             })
         }catch (e: any) {
-            runInAction(() => {
-                this.error = e?.response.data.message
-            })
+            console.log(e?.response)
         }
     }
 
@@ -41,9 +38,5 @@ export class CurrentUserStore {
 
         this.user = null
         this.token = ''
-    }
-
-    setError (error: string | null){
-        this.error = error
     }
 }

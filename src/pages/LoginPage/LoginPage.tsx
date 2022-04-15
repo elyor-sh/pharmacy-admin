@@ -16,7 +16,7 @@ export const LoginPage = observer(() => {
 
     const {currentUserStore} = useStore()
 
-    const {user: currentUser, error} = currentUserStore
+    const {user: currentUser} = currentUserStore
 
     const navigate = useNavigate()
 
@@ -52,14 +52,6 @@ export const LoginPage = observer(() => {
             navigate('/')
         }
     }, [currentUser, navigate])
-
-    useEffect(() => {
-        if(error){
-            toast.error(error, {
-                toastId: 'loginError'
-            })
-        }
-    }, [error])
 
     return (
         <ThemeProvider theme={theme}>
