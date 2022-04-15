@@ -1,3 +1,9 @@
+*, *::before, *::after {
+  list-style: none;
+  text-decoration: none;
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
