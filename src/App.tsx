@@ -2,7 +2,7 @@ import React from 'react';
 import {Routes, Route} from 'react-router-dom'
 import {LoginPage} from "./pages/LoginPage/LoginPage";
 import {PrivateRoutes} from "./routes/PrivateRoutes";
-import {LayoutPh} from "./components/LayoutPh/LayoutPh";
+import {LayoutPh} from "./components/LayoutPh";
 
 function App() {
   return (

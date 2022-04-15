@@ -4,6 +4,7 @@ import './index.scss';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {BrowserRouter} from "react-router-dom";
+import {ToasterPh} from "./components/Toaster/ToasterPh";
 
 const container = document.getElementById('root') as  Element | DocumentFragment;
 
@@ -13,6 +14,7 @@ const root = createRoot(container);
 root.render(
     <React.StrictMode>
         <BrowserRouter>
+            <ToasterPh />
             <App/>
         </BrowserRouter>
     </React.StrictMode>

@@ -1,13 +1,24 @@
 import * as React from 'react';
-import {Avatar,  Button, CssBaseline, TextField, FormControlLabel, Checkbox, Link, Paper, Box, Grid, Typography} from '@mui/material'
+import {Avatar,  Button, CssBaseline, TextField, FormControlLabel, Checkbox, Paper, Box, Grid, Typography} from '@mui/material'
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import {CopyRightPh} from "../../components/CopyRightPh/CopyRightPh";
-import {useState} from "react";
+import {useEffect, useState} from "react";
+import {Validate} from "../../helpers/validate";
+import {toast} from "react-toastify";
+import {useStore} from "../../store";
+import {useNavigate} from "react-router-dom";
+import {observer} from "mobx-react-lite";
 
 const theme = createTheme();
 
-export const LoginPage = () => {
+export const LoginPage = observer(() => {
+
+    const {currentUserStore} = useStore()
+
+    const {user: currentUser, error} = currentUserStore
+
+    const navigate = useNavigate()
 
     const [user, setUser] = useState({
         email: '',
@@ -15,10 +26,40 @@ export const LoginPage = () => {
         username: ''
     })
 
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
+        if(!Validate.email(user.email)) {
+            toast.error(`Email noto'g'ri kiritilgan!`)
+            return
+        }
+
+        if(!Validate.text(user.username)) {
+            toast.error(`Login to'liq kiritilmagan!`)
+            return
+        }
+
+        if(!Validate.password(user.password)) {
+            toast.error(`Parolning uzunligi kamida 6 ga va ko'pi bilan 16 ga teng bo'lishi kerak!`)
+            return
+        }
+
+        await currentUserStore.login(user)
     };
+
+    useEffect(() => {
+        if(currentUser){
+            navigate('/')
+        }
+    }, [currentUser, navigate])
+
+    useEffect(() => {
+        if(error){
+            toast.error(error, {
+                toastId: 'loginError'
+            })
+        }
+    }, [error])
 
     return (
         <ThemeProvider theme={theme}>
@@ -52,7 +93,7 @@ export const LoginPage = () => {
                             <LockOutlinedIcon />
                         </Avatar>
                         <Typography component="h1" variant="h5">
-                            Sign in
+                            Kirish
                         </Typography>
                         <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
                             <TextField
@@ -60,7 +101,7 @@ export const LoginPage = () => {
                                 required
                                 fullWidth
                                 id="username"
-                                label="Username"
+                                label="Login"
                                 name="username"
                                 autoComplete="username"
                                 onChange={e => setUser({...user, username: e.target.value})}
@@ -70,7 +111,7 @@ export const LoginPage = () => {
                                 required
                                 fullWidth
                                 id="email"
-                                label="Email Address"
+                                label="Email"
                                 name="email"
                                 autoComplete="email"
                                 onChange={e => setUser({...user, email: e.target.value})}
@@ -80,7 +121,7 @@ export const LoginPage = () => {
                                 required
                                 fullWidth
                                 name="password"
-                                label="Password"
+                                label="Parol"
                                 type="password"
                                 id="password"
                                 autoComplete="current-password"
@@ -88,7 +129,7 @@ export const LoginPage = () => {
                             />
                             <FormControlLabel
                                 control={<Checkbox value="remember" color="primary" />}
-                                label="Remember me"
+                                label="Eslab qolish"
                             />
                             <Button
                                 type="submit"
@@ -96,20 +137,8 @@ export const LoginPage = () => {
                                 variant="contained"
                                 sx={{ mt: 3, mb: 2 }}
                             >
-                                Sign In
+                                Kirish
                             </Button>
-                            <Grid container>
-                                <Grid item xs>
-                                    <Link href="#" variant="body2">
-                                        Forgot password?
-                                    </Link>
-                                </Grid>
-                                <Grid item>
-                                    <Link href="#" variant="body2">
-                                        {"Don't have an account? Sign Up"}
-                                    </Link>
-                                </Grid>
-                            </Grid>
                             <CopyRightPh sx={{ mt: 5 }} />
                         </Box>
                     </Box>
@@ -117,4 +146,4 @@ export const LoginPage = () => {
             </Grid>
         </ThemeProvider>
     );
-}
+})
