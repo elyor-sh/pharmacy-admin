@@ -13,10 +13,22 @@ export class CategoriesStore {
     activeCategory: ICategory | null = null
     newCategory:IPostCategoryParams | null = null
     openModal: boolean = false
+    page: number = 0
+    rowsPerPage: number = 5
+    count: number = 0
 
     constructor() {
         makeAutoObservable(this, {}, {autoBind: true})
     }
+
+    setPage (page: number) {
+        this.page = page
+    }
+
+    setRowsPerPage (page: number) {
+        this.rowsPerPage = page
+    }
+
 
     setOpenModal (open: boolean) {
         this.openModal = open
@@ -47,10 +59,16 @@ export class CategoriesStore {
     async getAll() {
         try {
 
-            const response = await apiGetAllCategories()
+            const params = {
+                page: this.page + 1,
+                rowsPerPage: this.rowsPerPage
+            }
+
+            const response = await apiGetAllCategories({params})
 
             runInAction(() => {
-                this.categories = response.data
+                this.categories = response.data.items
+                this.count = response.data.count
             })
 
         } catch (e) {

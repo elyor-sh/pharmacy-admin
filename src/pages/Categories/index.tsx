@@ -1,7 +1,7 @@
-import React, {useEffect, useState} from 'react';
-import {useStore} from "../../store";
+import React, {useEffect} from 'react';
 import {observer} from "mobx-react-lite";
 import {Grid} from "@mui/material";
+import {useStore} from "../../store";
 import {TablePh} from "../../components/UniversalComponents/TablePh";
 import {AddButtonPh} from "../../components/ButtonsPh/AddButtonPh";
 import {AddCategory} from "./Add";
@@ -18,7 +18,7 @@ const Categories = observer(() => {
         (async () => {
             await categoriesStore.getAll()
         })()
-    }, [])
+    }, [categoriesStore.page, categoriesStore.rowsPerPage])
 
     return (
         <>

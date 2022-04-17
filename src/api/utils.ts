@@ -4,7 +4,7 @@ import {pharmApiInstance, pharmApiInstanceAuth} from "./axios";
 export const apiAuthLogin = (param: any) => pharmApiInstanceAuth.post('/auth/login', param)
 
 // Categories
-export const apiGetAllCategories = () => pharmApiInstance.get('/categories')
+export const apiGetAllCategories = (params: any) => pharmApiInstance.get('/categories', params)
 export const apiGetOneCategory = (id: number) => pharmApiInstance.get(`/categories/${id}`)
 export const apiPostCategory = (param: any) => pharmApiInstance.post(`/categories`, param)
 export const apiPutCategory = (param: any) => pharmApiInstance.put(`/categories/edit`, param)

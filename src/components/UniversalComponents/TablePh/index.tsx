@@ -5,6 +5,7 @@ import Paper from '@mui/material/Paper';
 import {TableHeadPh} from "./TableHeadPh/TableHeadPh";
 import {TableBodyPh} from "./TableBodyPh/TableBodyPh";
 import {observer} from "mobx-react-lite";
+import {TablePaginationPh} from "./TablePaginationPh";
 
 export interface IHeadCells {
     title: string
@@ -32,6 +33,7 @@ export const TablePh: FC<ITablePh> = observer(({baseUrl, data, rowCells, headCel
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
                 <TableHeadPh headCells={headCells} />
                 <TableBodyPh rowCells={rowCells} rows={data} baseUrl={baseUrl} handleDelete={handleDelete}/>
+                <TablePaginationPh rows={data} />
             </Table>
         </TableContainer>
     );
