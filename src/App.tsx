@@ -7,6 +7,7 @@ import {Categories} from "./pages/Categories";
 import {Medicines} from "./pages/Medicines";
 import {Orders} from "./pages/Orders";
 import {Deliveries} from "./pages/Deliveries";
+import {EditCategory} from "./pages/Categories/Edit";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route element={<LayoutPh/>}>
             <Route path={''} element={<Navigate to={'/categories'} />} />
             <Route path={'categories'} element={<Categories />} />
+            <Route path={'categories/:id'} element={<EditCategory />} />
             <Route path={'medicines'} element={<Medicines />} />
             <Route path={'orders'} element={<Orders />} />
             <Route path={'deliveries'} element={<Deliveries />} />

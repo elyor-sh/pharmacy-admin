@@ -1,27 +1,4 @@
 // User
-
-//      "id": 4,
-//     "email": "superadmin@mail.ru",
-//     "username": "superadmin",
-//     "banned": false,
-//     "banReason": null,
-//     "createdAt": "2022-04-11T11:34:35.652Z",
-//     "updatedAt": "2022-04-11T11:34:35.652Z",
-//     "roles": [
-//     {
-//         "id": 2,
-//         "value": "ADMIN",
-//         "description": "Super Admin",
-//         "createdAt": "2022-04-11T11:17:47.281Z",
-//         "updatedAt": "2022-04-11T11:17:47.281Z",
-//         "UserRoles": {
-//             "id": 1,
-//             "roleId": 2,
-//             "userId": 4
-//         }
-//     }
-// ]
-
 export interface IUserRoles {
     id: number | string
     roleId: number | string
@@ -45,5 +22,22 @@ export interface IUser {
     banReason: string
     createdAt: string
     updatedAt: string
-    roles: IRoles
+    roles: IRoles[]
+}
+
+// Categories
+
+export interface ICategory {
+    id: number
+    name: string
+    createdAt: string
+    updatedAt: string
+}
+
+export interface IPostCategoryParams {
+    name: string
+}
+
+export interface IPutCategoryParams extends IPostCategoryParams {
+    id: number
 }
