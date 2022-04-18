@@ -22,7 +22,7 @@ export interface IUser {
     banReason: string
     createdAt: string
     updatedAt: string
-    roles: IRoles[]
+    roles: IRoles
 }
 
 // Categories

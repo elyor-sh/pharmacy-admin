@@ -15,6 +15,7 @@
     "@types/react": "^18.0.3",
     "@types/react-dom": "^18.0.0",
     "axios": "^0.26.1",
+    "cross-env": "^7.0.3",
     "mobx": "^6.5.0",
     "mobx-react-lite": "^3.3.0",
     "react": "^18.0.0",
@@ -26,7 +27,8 @@
     "web-vitals": "^2.1.0"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "cross-env REACT_APP_ENVIRONMENT=production react-scripts start",
+    "dev": "cross-env REACT_APP_ENVIRONMENT=development react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

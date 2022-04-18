@@ -2,7 +2,7 @@ import React from 'react';
 import {observer} from "mobx-react-lite";
 import {useStore} from "../../../store";
 import {toast} from "react-toastify";
-import {ModalPh} from "../../../components/ModalPh/ModalPh";
+import {ModalPh} from "../../../components/UniversalComponents/ModalPh/ModalPh";
 import {TextField} from "@mui/material";
 
 const AddCategory = observer(() => {
@@ -46,6 +46,9 @@ const AddCategory = observer(() => {
                     handleSave={handleAddCategory}
                 >
                     <TextField
+                        fullWidth
+                        autoFocus
+                        label={'Kategoriya nomini kiriting!'}
                         value={categoriesStore.newCategory?.name ? categoriesStore.newCategory?.name : ''}
                         onChange={handleChange}
                     />

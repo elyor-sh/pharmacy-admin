@@ -1,7 +1,7 @@
 import React, {FC} from 'react';
 import {Grid, Box, Modal, Typography} from "@mui/material";
-import {CancelButtonPh} from "../ButtonsPh/CancelButtonPh";
-import {SaveButtonPh} from "../ButtonsPh/SaveButtonPh";
+import {CancelButtonPh} from "../../ButtonsPh/CancelButtonPh";
+import {SaveButtonPh} from "../../ButtonsPh/SaveButtonPh";
 
 const style = {
     position: 'absolute' as 'absolute',
@@ -40,8 +40,9 @@ export const ModalPh:FC<IModalPh> = ({ open,title, handleClose, handleSave, chil
                    <Typography component="div" sx={{margin: '20px 0px'}} >
                        {children}
                    </Typography>
-                    <Grid container>
+                    <Grid container sx={{justifyContent: 'flex-end'}}>
                        <CancelButtonPh
+                           sx={{margin: '0px 10px'}}
                         onClick={handleClose}
                        >
                            Bekor qilish

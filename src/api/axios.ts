@@ -1,7 +1,12 @@
 import axios, {AxiosRequestConfig} from 'axios'
 import {toast} from "react-toastify";
 
-const baseURL = process.env.REACT_APP_API_URL
+const baseURL = process.env.REACT_APP_ENVIRONMENT === 'development'
+    ?
+    process.env.REACT_APP_DEV_API_URL
+    :
+    process.env.REACT_APP_PROD_API_URL
+
 
 export const pharmApiInstance = axios.create({
     baseURL: baseURL,
