@@ -60,20 +60,14 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 );
 
 export const LayoutPh = observer(() => {
-    const theme = useTheme();
+
     const {themeStore} = useStore()
-
-    const {openMenu: open} = themeStore
-
-    const handleDrawerClose = () => {
-        themeStore.setOpenMenu(false);
-    };
 
     return (
         <Box sx={{ display: 'flex' }}>
             <CssBaseline />
             <HeaderPh/>
-            <Drawer variant="permanent" open={open}>
+            <Drawer variant="permanent" open={themeStore.openMenu}>
                 <SidebarPh />
             </Drawer>
             <Box component="main" sx={{ flexGrow: 1, p: 3 }}>

@@ -6,7 +6,6 @@ import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import LastPageIcon from '@mui/icons-material/LastPage';
 import {observer} from "mobx-react-lite";
-import {useStore} from "../../../../store";
 
 interface TablePaginationActionsProps {
     count: number;
@@ -76,36 +75,39 @@ function TablePaginationActions(props: TablePaginationActionsProps) {
 }
 
 interface ITablePagination {
-    rows: any
+    rowsPerPage: any
+    count: number
+    page: number
+    setPage: any
+    setRowsPerPage: any
 }
 
-export const TablePaginationPh: FC<ITablePagination> = observer(({rows}) => {
+export const TablePaginationPh: FC<ITablePagination> = observer(({rowsPerPage, count, page, setPage, setRowsPerPage}) => {
 
-    const {categoriesStore} = useStore()
 
     const handleChangePage = (
         event: React.MouseEvent<HTMLButtonElement> | null,
         newPage: number,
     ) => {
-        categoriesStore.setPage(newPage);
+        setPage(newPage);
     };
 
     const handleChangeRowsPerPage = (
         event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
     ) => {
-        categoriesStore.setRowsPerPage(parseInt(event.target.value, 10));
-        categoriesStore.setPage(0);
+        setRowsPerPage(parseInt(event.target.value, 10));
+        setPage(0);
     };
 
     return (
         <TableFooter>
             <TableRow>
                 <TablePagination
-                    rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
+                    rowsPerPageOptions={[5, 10, 25, 50, 100]}
                     colSpan={3}
-                    count={categoriesStore.count}
-                    rowsPerPage={categoriesStore.rowsPerPage}
-                    page={categoriesStore.page}
+                    count={count}
+                    rowsPerPage={rowsPerPage}
+                    page={page}
                     SelectProps={{
                         inputProps: {
                             'aria-label': 'rows per page',

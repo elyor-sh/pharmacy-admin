@@ -25,15 +25,26 @@ interface ITablePh {
     rowCells: IRowCells[]
     headCells: IHeadCells[]
     handleDelete: (id: number) => any
+    rowsPerPage: number
+    count: number
+    page: number
+    setPage: any
+    setRowsPerPage: any
 }
 
-export const TablePh: FC<ITablePh> = observer(({baseUrl, data, rowCells, headCells, handleDelete}) => {
+export const TablePh: FC<ITablePh> = observer(({baseUrl, data, rowCells, headCells, handleDelete, rowsPerPage, count, page, setPage, setRowsPerPage}) => {
     return (
         <TableContainer component={Paper}>
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
                 <TableHeadPh headCells={headCells} />
                 <TableBodyPh rowCells={rowCells} rows={data} baseUrl={baseUrl} handleDelete={handleDelete}/>
-                <TablePaginationPh rows={data} />
+                <TablePaginationPh
+                    rowsPerPage={rowsPerPage}
+                    page={page}
+                    setPage={setPage}
+                    setRowsPerPage={setRowsPerPage}
+                    count={count}
+                />
             </Table>
         </TableContainer>
     );

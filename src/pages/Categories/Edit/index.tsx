@@ -12,7 +12,7 @@ const EditCategory = observer(() => {
 
     const {categoriesStore} = useStore()
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         categoriesStore.setActiveNameCategory(e.target.value)
     }
 

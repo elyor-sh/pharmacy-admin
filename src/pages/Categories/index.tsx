@@ -34,6 +34,11 @@ const Categories = observer(() => {
                 baseUrl={'/categories'}
                 data={categoriesStore.categories}
                 handleDelete={categoriesStore.deleteCategory}
+                count={categoriesStore.count}
+                page={categoriesStore.page}
+                setPage={categoriesStore.page}
+                rowsPerPage={categoriesStore.rowsPerPage}
+                setRowsPerPage={categoriesStore.setRowsPerPage}
                 rowCells={[
                     {contentKey: 'name', align: 'left', type: 'text'},
                     {contentKey: 'createdAt', align: 'left', type: 'date'},

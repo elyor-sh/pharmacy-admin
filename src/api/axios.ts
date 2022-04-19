@@ -1,7 +1,7 @@
 import axios, {AxiosRequestConfig} from 'axios'
 import {toast} from "react-toastify";
 
-const baseURL = process.env.REACT_APP_ENVIRONMENT === 'development'
+export const baseURL = process.env.REACT_APP_ENVIRONMENT === 'development'
     ?
     process.env.REACT_APP_DEV_API_URL
     :
@@ -43,7 +43,6 @@ export const pharmApiInstanceAuth = axios.create({
 export const pharmApiInstanceUpload = axios.create({
     baseURL: baseURL,
     timeout: 30000,
-    method: 'post',
     // mode: 'cors',
     headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`,

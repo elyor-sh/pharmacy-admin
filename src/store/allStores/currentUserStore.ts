@@ -1,6 +1,6 @@
 import {makeAutoObservable, runInAction} from "mobx";
-import {IUser} from "../types";
 import {apiAuthLogin} from "../../api/utils";
+import {IUserSchema} from "../../models/schemas/userSchema";
 
 export interface ILoginParams {
     email: string
@@ -10,7 +10,7 @@ export interface ILoginParams {
 
 export class CurrentUserStore {
 
-    user: IUser | null = localStorage.getItem('currentUserPh') ? JSON.parse(localStorage.getItem('currentUserPh') || '{}') : null
+    user: IUserSchema | null = localStorage.getItem('currentUserPh') ? JSON.parse(localStorage.getItem('currentUserPh') || '{}') : null
     token: string = localStorage.getItem('token') || ''
 
     constructor() {

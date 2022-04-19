@@ -1,6 +1,9 @@
+import {Grid} from "@mui/material";
 import {IRowCells} from "../index";
 import {EditButtonTable} from "../actions/EditButtonTable";
 import {DeleteButtonTable} from "../actions/DeleteButtonTable";
+import {baseURL} from "../../../../api/axios";
+import {noImage} from "../../../../assets/images";
 
 
 export const drawCell = (row: any, cell: IRowCells, baseUrl: string, handleDelete: (id: number) => any) => {
@@ -26,6 +29,18 @@ export const drawCell = (row: any, cell: IRowCells, baseUrl: string, handleDelet
                     handleDelete={handleDelete}
                 />
             </>
+        case 'image':
+
+            if(!row[cell.contentKey]){
+                return <>
+                    <img src={noImage} width={'50px'} height={'50px'} alt="img"/>
+                </>
+            }
+
+            return <>
+                <img src={`${baseURL}/${row[cell.contentKey]}`} width={'50px'} height={'50px'} alt="img"/>
+            </>
+
         default:
             return null
     }

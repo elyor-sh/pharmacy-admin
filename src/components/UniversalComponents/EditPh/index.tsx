@@ -1,16 +1,19 @@
 import React, {FC} from 'react';
 import {useNavigate} from "react-router-dom";
-import { Grid, TextField} from "@mui/material";
+import {FormControlLabel, Grid, Switch, TextField} from "@mui/material";
+import classes from './EditPh.module.scss'
 import {SaveButtonPh} from "../../ButtonsPh/SaveButtonPh";
 import {CancelButtonPh} from "../../ButtonsPh/CancelButtonPh";
 
 interface IInputs {
+    elementType?: string
     type?: string
     name: string
-    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
+    onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
     value: any
-    label: string
+    label?: string
     placeholder?: string
+    attrs?: any
 }
 
 interface IEditPh {
@@ -19,12 +22,57 @@ interface IEditPh {
     onSaveClick?: () => void
 }
 
-const EditPh:FC<IEditPh> = ({width, inputs, onSaveClick}) => {
+const EditPh: FC<IEditPh> = ({width, inputs, onSaveClick}) => {
 
     const navigate = useNavigate()
 
     const handleCancel = () => {
         navigate(-1)
+    }
+
+    const drawElements = (element: IInputs) => {
+        switch (element.elementType) {
+            case undefined:
+                return <TextField
+                    fullWidth
+                    value={element.value}
+                    name={element.name}
+                    onChange={element.onChange}
+                    type={element.type ? element.type : 'text'}
+                    label={element.label}
+                    placeholder={element.placeholder}
+                    autoFocus={true}
+                />
+            case 'file':
+                return <TextField
+                    fullWidth
+                    name={element.name}
+                    onChange={element.onChange}
+                    type={'file'}
+                    label={element.label}
+                    value={element.value}
+                    {...element.attrs}
+                />
+            case 'textarea':
+                return <textarea
+                    name={element.name}
+                    value={element.value}
+                    onChange={element.onChange}
+                    className={classes.textarea}
+                />
+            case 'checkbox' :
+                return <FormControlLabel control={
+                    <Switch
+                        name={element.name}
+                        checked={element.value}
+                        onChange={element.onChange}
+                    />
+                }
+                 label={element.label}
+                />
+            default:
+                return null
+        }
     }
 
     return (
@@ -34,16 +82,7 @@ const EditPh:FC<IEditPh> = ({width, inputs, onSaveClick}) => {
                     inputs.map(input => {
                         return (
                             <Grid key={input.name} item xs={6} sx={{marginBottom: '20px'}}>
-                                <TextField
-                                    fullWidth
-                                    value={input.value}
-                                    name = {input.name}
-                                    onChange={input.onChange}
-                                    type={input.type ? input.type : 'string'}
-                                    label={input.label}
-                                    placeholder={input.placeholder}
-                                    autoFocus={true}
-                                 />
+                                {drawElements(input)}
                             </Grid>
                         )
                     })
@@ -66,4 +105,4 @@ const EditPh:FC<IEditPh> = ({width, inputs, onSaveClick}) => {
     );
 };
 
-export { EditPh };
+export {EditPh};

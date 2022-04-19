@@ -1,5 +1,4 @@
 import {makeAutoObservable, runInAction} from "mobx";
-import {ICategory, IPostCategoryParams, IPutCategoryParams} from "../types";
 import {
     apiDeleteCategory,
     apiGetAllCategories,
@@ -7,10 +6,11 @@ import {
     apiPostCategory,
     apiPutCategory
 } from "../../api/utils";
+import {ICategoriesSchema, IPostCategoryParams, IPutCategoryParams} from "../../models/schemas/categoriesSchema";
 
 export class CategoriesStore {
-    categories: ICategory[] = []
-    activeCategory: ICategory | null = null
+    categories: ICategoriesSchema[] = []
+    activeCategory: ICategoriesSchema | null = null
     newCategory:IPostCategoryParams | null = null
     openModal: boolean = false
     page: number = 0
@@ -38,7 +38,7 @@ export class CategoriesStore {
         this.newCategory = category
     }
 
-    setActiveCategory(active: ICategory | null) {
+    setActiveCategory(active: ICategoriesSchema | null) {
         this.activeCategory = active
     }
 
