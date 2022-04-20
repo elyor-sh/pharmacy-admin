@@ -8,9 +8,16 @@ import {
 } from "../../api/utils";
 import {ICategoriesSchema, IPostCategoryParams, IPutCategoryParams} from "../../models/schemas/categoriesSchema";
 
+const activeCategory: ICategoriesSchema = {
+    id: '',
+    name: '',
+    createdAt: '',
+    updatedAt: ''
+}
+
 export class CategoriesStore {
     categories: ICategoriesSchema[] = []
-    activeCategory: ICategoriesSchema | null = null
+    activeCategory: ICategoriesSchema | null = {...activeCategory}
     newCategory:IPostCategoryParams | null = null
     openModal: boolean = false
     page: number = 0
@@ -51,6 +58,10 @@ export class CategoriesStore {
             }
             :
             null
+    }
+
+    reset () {
+        this.activeCategory = {...activeCategory}
     }
 
 

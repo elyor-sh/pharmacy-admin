@@ -16,7 +16,22 @@ const EditCategory = observer(() => {
         categoriesStore.setActiveNameCategory(e.target.value)
     }
 
+    const handleAdd = async () => {
+        const params = {
+            name: categoriesStore.activeCategory?.name || ''
+        }
+
+        await categoriesStore.postCategory(params)
+        navigate(-1)
+    }
+
     const handleSave = async () => {
+
+        if(id === 'create'){
+            await handleAdd()
+            return
+        }
+
         const params = {
             id: Number(id),
             name: categoriesStore.activeCategory?.name || ''
@@ -34,7 +49,7 @@ const EditCategory = observer(() => {
 
     useEffect(() => {
 
-        if(!id){
+        if(!id || id === 'create'){
             return
         }
 

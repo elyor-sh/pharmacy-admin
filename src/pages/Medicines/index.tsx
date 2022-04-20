@@ -4,13 +4,15 @@ import {useStore} from "../../store";
 import {Grid} from "@mui/material";
 import {AddButtonPh} from "../../components/ButtonsPh/AddButtonPh";
 import {TablePh} from "../../components/UniversalComponents/TablePh";
+import {useNavigate} from "react-router-dom";
 
 const Medicines = observer(() => {
 
     const {medicinesStore} = useStore()
+    const navigate = useNavigate()
 
-    const handleOpenModal = () => {
-        medicinesStore.setOpenModal(true)
+    const handleCreate = () => {
+       navigate('/medicines/create')
     }
 
     useEffect(() => {
@@ -21,11 +23,15 @@ const Medicines = observer(() => {
         )()
     }, [medicinesStore.page, medicinesStore.rowsPerPage])
 
+    useEffect(() => {
+        medicinesStore.resetActiveMedicine()
+    }, [])
+
     return (
         <>
             <Grid container sx={{justifyContent: 'flex-end', marginBottom: '20px'}}>
                 <AddButtonPh
-                    onClick={handleOpenModal}
+                    onClick={handleCreate}
                 >
                     Dori qo'shish
                 </AddButtonPh>

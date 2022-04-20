@@ -1,6 +1,6 @@
 import React, {FC} from 'react';
 import {useNavigate} from "react-router-dom";
-import {FormControlLabel, Grid, Switch, TextField} from "@mui/material";
+import {FormControl, FormControlLabel, Grid, InputLabel, MenuItem, Select, Switch, TextField} from "@mui/material";
 import classes from './EditPh.module.scss'
 import {SaveButtonPh} from "../../ButtonsPh/SaveButtonPh";
 import {CancelButtonPh} from "../../ButtonsPh/CancelButtonPh";
@@ -9,25 +9,32 @@ interface IInputs {
     elementType?: string
     type?: string
     name: string
-    onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
+    onChange: (e: any) => void
     value: any
     label?: string
     placeholder?: string
     attrs?: any
+    options?:any
+    valueKey?: string
+    labelKey?: string
 }
 
 interface IEditPh {
     width?: string | number
     inputs: IInputs[]
     onSaveClick?: () => void
+    resetClick?: () => void
 }
 
-const EditPh: FC<IEditPh> = ({width, inputs, onSaveClick}) => {
+const EditPh: FC<IEditPh> = ({width, inputs, onSaveClick, resetClick}) => {
 
     const navigate = useNavigate()
 
     const handleCancel = () => {
         navigate(-1)
+        if(resetClick){
+            resetClick()
+        }
     }
 
     const drawElements = (element: IInputs) => {
@@ -59,6 +66,7 @@ const EditPh: FC<IEditPh> = ({width, inputs, onSaveClick}) => {
                     value={element.value}
                     onChange={element.onChange}
                     className={classes.textarea}
+                    placeholder={element.placeholder}
                 />
             case 'checkbox' :
                 return <FormControlLabel control={
@@ -70,6 +78,29 @@ const EditPh: FC<IEditPh> = ({width, inputs, onSaveClick}) => {
                 }
                  label={element.label}
                 />
+            case 'select':
+               return <FormControl fullWidth>
+                    <InputLabel id="demo-simple-select-label">{element.label}</InputLabel>
+                    <Select
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        value={element.value}
+                        label={element.label}
+                        onChange={element.onChange}
+                        name={element.name}
+                    >
+                        {
+                            element.options.map((option: any) => {
+                                return  <MenuItem
+                                    value={option[element?.valueKey || '']}
+                                    key={option[element?.valueKey || '']}
+                                >
+                                    {option[element?.labelKey || '']}
+                                </MenuItem>
+                            })
+                        }
+                    </Select>
+                </FormControl>
             default:
                 return null
         }

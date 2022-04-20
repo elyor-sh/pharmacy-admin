@@ -16,4 +16,4 @@ export const apiGetAllMedicines = (params: any) => pharmApiInstance.get('/medici
 export const apiGetOneMedicine = (id: number) => pharmApiInstance.get(`/medicines/${id}`)
 export const apiPostMedicine = (params: FormData) => pharmApiInstanceUpload.post(`/medicines`, params)
 export const apiPutMedicine = (params: FormData) => pharmApiInstanceUpload.put(`/medicines/edit`, params)
-export const apiDeleteMedicine = (id: number) => pharmApiInstance.put(`/medicines/delete/${id}`)
+export const apiDeleteMedicine = (id: number) => pharmApiInstance.delete(`/medicines/delete/${id}`)

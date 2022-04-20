@@ -3,6 +3,7 @@ import {observer} from "mobx-react-lite";
 import {useNavigate, useParams} from "react-router-dom";
 import {useStore} from "../../../store";
 import {EditPh} from "../../../components/UniversalComponents/EditPh";
+import {toast} from "react-toastify";
 
 const EditMedicine = observer(() => {
 
@@ -12,7 +13,7 @@ const EditMedicine = observer(() => {
     const [image, setImage] = useState<File | null>(null)
     const [imgValue, setImgValue] = useState('')
 
-    const {medicinesStore} = useStore()
+    const {medicinesStore, categoriesStore} = useStore()
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const name = e.target.name
@@ -45,28 +46,51 @@ const EditMedicine = observer(() => {
 
     const handleSave = async () => {
 
-        let formData = new FormData()
+        if(!medicinesStore.activeMedicine?.name || !medicinesStore.activeMedicine.categoryId){
+            toast.error(`Barcha maydonni to'ldiring!`, {
+                toastId: 'MedicinedEditToast'
+            })
 
-       formData.append('id', medicinesStore.activeMedicine?.id.toString() || '')
-       formData.append('price', medicinesStore.activeMedicine?.price.toString() || '')
-       formData.append('priceWithDiscount', medicinesStore.activeMedicine?.priceWithDiscount.toString() || '')
-       formData.append('totalCount', medicinesStore.activeMedicine?.totalCount.toString() || '')
-       formData.append('hasDiscount', medicinesStore.activeMedicine?.hasDiscount.toString() || '')
-       formData.append('description', medicinesStore.activeMedicine?.description || '')
-       formData.append('name', medicinesStore.activeMedicine?.name || '')
-        if(image){
-            formData.append('image', image)
+            return
         }
 
-        await medicinesStore.update(formData)
+        try {
+            let formData = new FormData()
 
-        navigate(-1)
+            if(id !== 'create'){
+                formData.append('id',  id as string)
+            }
+            formData.append('price', medicinesStore.activeMedicine?.price.toString() || '')
+            formData.append('priceWithDiscount', medicinesStore.activeMedicine?.priceWithDiscount.toString() || '')
+            formData.append('totalCount', medicinesStore.activeMedicine?.totalCount.toString() || '')
+            formData.append('hasDiscount', medicinesStore.activeMedicine?.hasDiscount.toString() || '')
+            formData.append('description', medicinesStore.activeMedicine?.description || '')
+            formData.append('name', medicinesStore.activeMedicine?.name || '')
+            formData.append('currency', medicinesStore.activeMedicine?.currency || '')
+            formData.append('categoryId', medicinesStore.activeMedicine?.categoryId.toString() || '')
+            if(image){
+                formData.append('image', image)
+            }
 
+            if(id === 'create'){
+                await medicinesStore.create(formData)
+            }else{
+                await medicinesStore.update(formData)
+            }
+
+            medicinesStore.resetActiveMedicine()
+
+            navigate(-1)
+
+
+        }catch (e) {
+            console.log(e)
+        }
     }
 
     useEffect(() => {
 
-        if(!id){
+        if(!id || id==='create'){
             return
         }
 
@@ -74,6 +98,15 @@ const EditMedicine = observer(() => {
             await medicinesStore.getOne(Number(id))
         })()
     }, [id])
+
+    useEffect(() => {
+        (
+            async () => {
+                await categoriesStore.getAll()
+            }
+        )()
+    }, [])
+
 
     return (
         <div>
@@ -106,7 +139,8 @@ const EditMedicine = observer(() => {
                     {
                         value: medicinesStore.activeMedicine?.description || '',
                         name: 'description', onChange: (e) => handleChange(e),
-                        elementType: 'textarea'
+                        elementType: 'textarea',
+                        placeholder: 'Dori tavsifi'
                     },
                     {
                         value: medicinesStore.activeMedicine?.hasDiscount ? medicinesStore.activeMedicine?.hasDiscount : false,
@@ -120,8 +154,18 @@ const EditMedicine = observer(() => {
                         type: 'file',
                         attrs: {accept: 'image/*'}
                     },
+                    {
+                        value: medicinesStore.activeMedicine?.categoryId,
+                        name: 'categoryId', onChange: (e) => handleChange(e),
+                        elementType: 'select',
+                        options: [...categoriesStore.categories],
+                        valueKey: 'id',
+                        labelKey: 'name',
+                        label: 'Kategoriya'
+                    },
                 ]}
                 onSaveClick={handleSave}
+                resetClick={medicinesStore.resetActiveMedicine}
             />
         </div>
     );

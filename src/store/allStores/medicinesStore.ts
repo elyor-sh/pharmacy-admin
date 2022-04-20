@@ -7,13 +7,25 @@ import {
 } from "../../api/utils";
 import {IMedicinesSchema, IPostMedicinesSchema, IPutMedicinesSchema} from "../../models/schemas/medicinesSchema";
 
+
+const createMedicine: IMedicinesSchema = {
+    id: '',
+    name: '',
+    price: 0,
+    description: '',
+    image: '',
+    totalCount: 0,
+    hasDiscount: false,
+    priceWithDiscount: 0,
+    currency: 'UZS',
+    categoryId: ''
+}
+
 export class MedicinesStore {
 
     medicines: IMedicinesSchema[] = []
-    activeMedicine: IMedicinesSchema | null = null
+    activeMedicine: IMedicinesSchema | null = {...createMedicine}
     newMedicine: IPostMedicinesSchema | null = null
-
-    openModal: boolean = false
 
     // для пагинации
     page: number = 0
@@ -32,10 +44,10 @@ export class MedicinesStore {
         this.rowsPerPage = page
     }
 
-
-    setOpenModal(open: boolean) {
-        this.openModal = open
+    resetActiveMedicine () {
+        this.activeMedicine = createMedicine
     }
+
 
     setNewMedicine(medicine: IPostMedicinesSchema | null) {
         this.newMedicine = medicine

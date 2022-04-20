@@ -4,14 +4,16 @@ import {Grid} from "@mui/material";
 import {useStore} from "../../store";
 import {TablePh} from "../../components/UniversalComponents/TablePh";
 import {AddButtonPh} from "../../components/ButtonsPh/AddButtonPh";
-import {AddCategory} from "./Add";
+import {useNavigate} from "react-router-dom";
 
 const Categories = observer(() => {
 
     const {categoriesStore} = useStore()
 
-    const handleOpenModal = () => {
-        categoriesStore.setOpenModal(true)
+    const navigate = useNavigate()
+
+    const handleAdd = () => {
+        navigate('/categories/create')
     }
 
     useEffect(() => {
@@ -22,10 +24,9 @@ const Categories = observer(() => {
 
     return (
         <>
-            <AddCategory />
             <Grid container sx={{justifyContent: 'flex-end', marginBottom: '20px'}}>
                 <AddButtonPh
-                    onClick={handleOpenModal}
+                    onClick={handleAdd}
                 >
                     Kategoriya qo'shish
                 </AddButtonPh>

@@ -32,7 +32,7 @@ export const SidebarPh = observer(() => {
                                 justifyContent: 'center',
                             }}
                         >
-                            {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                            {link.icon}
                         </ListItemIcon>
                         <ListItemText primary={link.text} sx={{ opacity: open ? 1 : 0 }} />
                     </ListItemButton>

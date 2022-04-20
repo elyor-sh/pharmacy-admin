@@ -8,6 +8,7 @@ export interface IPostMedicinesSchema {
     hasDiscount: boolean
     priceWithDiscount: number
     currency: string
+    categoryId: number
 }
 
 export interface IPutMedicinesSchema {
@@ -20,10 +21,11 @@ export interface IPutMedicinesSchema {
     hasDiscount?: boolean
     priceWithDiscount?: number
     currency?: string
+    categoryId: number
 }
 
 export interface IMedicinesSchema {
-    id: number
+    id: number |  string
     name: string
     price: number
     description: string
@@ -32,4 +34,5 @@ export interface IMedicinesSchema {
     hasDiscount: boolean
     priceWithDiscount: number
     currency: string
+    categoryId: string | number
 }
