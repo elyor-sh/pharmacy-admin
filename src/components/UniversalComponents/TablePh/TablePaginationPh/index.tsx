@@ -78,8 +78,8 @@ interface ITablePagination {
     rowsPerPage: any
     count: number
     page: number
-    setPage: any
-    setRowsPerPage: any
+    setPage: (param: number) => void
+    setRowsPerPage: (param: number) => void
 }
 
 export const TablePaginationPh: FC<ITablePagination> = observer(({rowsPerPage, count, page, setPage, setRowsPerPage}) => {

@@ -41,7 +41,7 @@ const Medicines = observer(() => {
                 data={medicinesStore.medicines}
                 handleDelete={medicinesStore.delete}
                 page={medicinesStore.page}
-                setPage={medicinesStore.page}
+                setPage={medicinesStore.setPage}
                 rowsPerPage={medicinesStore.rowsPerPage}
                 setRowsPerPage={medicinesStore.setRowsPerPage}
                 count={medicinesStore.count}

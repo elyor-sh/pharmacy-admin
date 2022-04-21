@@ -28,8 +28,8 @@ interface ITablePh {
     rowsPerPage: number
     count: number
     page: number
-    setPage: any
-    setRowsPerPage: any
+    setPage: (param: number) => void
+    setRowsPerPage: (param: number) => void
 }
 
 export const TablePh: FC<ITablePh> = observer(({baseUrl, data, rowCells, headCells, handleDelete, rowsPerPage, count, page, setPage, setRowsPerPage}) => {

@@ -58,7 +58,7 @@ const EditPh: FC<IEditPh> = ({width, inputs, onSaveClick, resetClick}) => {
                     type={'file'}
                     label={element.label}
                     value={element.value}
-                    {...element.attrs}
+                    inputProps={{accept: element.attrs.accept}}
                 />
             case 'textarea':
                 return <textarea

@@ -37,7 +37,7 @@ const Categories = observer(() => {
                 handleDelete={categoriesStore.deleteCategory}
                 count={categoriesStore.count}
                 page={categoriesStore.page}
-                setPage={categoriesStore.page}
+                setPage={categoriesStore.setPage}
                 rowsPerPage={categoriesStore.rowsPerPage}
                 setRowsPerPage={categoriesStore.setRowsPerPage}
                 rowCells={[

@@ -18,8 +18,6 @@ const activeCategory: ICategoriesSchema = {
 export class CategoriesStore {
     categories: ICategoriesSchema[] = []
     activeCategory: ICategoriesSchema | null = {...activeCategory}
-    newCategory:IPostCategoryParams | null = null
-    openModal: boolean = false
     page: number = 0
     rowsPerPage: number = 5
     count: number = 0
@@ -34,19 +32,6 @@ export class CategoriesStore {
 
     setRowsPerPage (page: number) {
         this.rowsPerPage = page
-    }
-
-
-    setOpenModal (open: boolean) {
-        this.openModal = open
-    }
-
-    setNewCategory (category: IPostCategoryParams | null) {
-        this.newCategory = category
-    }
-
-    setActiveCategory(active: ICategoriesSchema | null) {
-        this.activeCategory = active
     }
 
     setActiveNameCategory(name: string) {

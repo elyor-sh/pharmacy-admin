@@ -25,7 +25,7 @@ export class MedicinesStore {
 
     medicines: IMedicinesSchema[] = []
     activeMedicine: IMedicinesSchema | null = {...createMedicine}
-    newMedicine: IPostMedicinesSchema | null = null
+    image: FileList | null = null
 
     // для пагинации
     page: number = 0
@@ -49,25 +49,34 @@ export class MedicinesStore {
     }
 
 
-    setNewMedicine(medicine: IPostMedicinesSchema | null) {
-        this.newMedicine = medicine
-    }
-
     setActiveMedicine(active: IMedicinesSchema | null) {
         this.activeMedicine = active
     }
 
-    setActiveNameMedicine(name: string) {
-        this.activeMedicine = this.activeMedicine !== null
-            ?
-            {
-                ...this.activeMedicine,
-                name: name
-            }
-            :
-            null
+    setImage (image: FileList) {
+        this.image = image
     }
 
+    getPostOrPutParams (id: string | number) {
+        let formData = new FormData()
+
+        if(id !== 'create'){
+            formData.append('id',  id as string)
+        }
+        formData.append('price', this.activeMedicine?.price.toString() || '')
+        formData.append('priceWithDiscount', this.activeMedicine?.priceWithDiscount.toString() || '')
+        formData.append('totalCount', this.activeMedicine?.totalCount.toString() || '')
+        formData.append('hasDiscount', this.activeMedicine?.hasDiscount.toString() || '')
+        formData.append('description', this.activeMedicine?.description || '')
+        formData.append('name', this.activeMedicine?.name || '')
+        formData.append('currency', this.activeMedicine?.currency || '')
+        formData.append('categoryId', this.activeMedicine?.categoryId.toString() || '')
+        if(this.image){
+            formData.append('image', this.image[0])
+        }
+
+        return formData
+    }
 
     // Дальше КРУД по категориям
 
@@ -119,8 +128,10 @@ export class MedicinesStore {
         }
     }
 
-    async create(params: FormData) {
+    async create() {
         try {
+
+            const params = this.getPostOrPutParams('create')
 
             const response = await apiPostMedicine(params)
 
@@ -136,8 +147,10 @@ export class MedicinesStore {
         }
     }
 
-    async update(params: FormData) {
+    async update(id: number) {
         try {
+
+            const params = this.getPostOrPutParams(id)
 
             const response = await apiPutMedicine(params)
 

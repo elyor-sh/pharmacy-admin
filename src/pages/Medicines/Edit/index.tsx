@@ -10,17 +10,17 @@ const EditMedicine = observer(() => {
     const {id} = useParams()
     const navigate = useNavigate()
 
-    const [image, setImage] = useState<File | null>(null)
     const [imgValue, setImgValue] = useState('')
 
     const {medicinesStore, categoriesStore} = useStore()
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const name = e.target.name
-        const value = e.target.type === 'number' ?  +e.target.value : e.target.value
+        const value = e.target.type === 'number' ? +e.target.value : e.target.value
 
-        if(medicinesStore.activeMedicine){
+        if (medicinesStore.activeMedicine) {
             medicinesStore.setActiveMedicine({
+
                 ...medicinesStore.activeMedicine,
                 [name]: value
             })
@@ -28,7 +28,7 @@ const EditMedicine = observer(() => {
     }
 
     const handleChangeCheckbox = (e: React.ChangeEvent<HTMLInputElement>) => {
-        if(medicinesStore.activeMedicine){
+        if (medicinesStore.activeMedicine) {
             medicinesStore.setActiveMedicine({
                 ...medicinesStore.activeMedicine,
                 hasDiscount: e.target.checked
@@ -37,16 +37,15 @@ const EditMedicine = observer(() => {
     }
 
     const handleChangeImage = (e: React.ChangeEvent<HTMLInputElement>) => {
-        if(e.target?.files){
-            setImage(e.target?.files[0])
+        if (e.target?.files) {
+            medicinesStore.setImage(e.target?.files)
+            setImgValue(e.target.value)
         }
-
-        setImgValue(e.target.value)
     }
 
     const handleSave = async () => {
 
-        if(!medicinesStore.activeMedicine?.name || !medicinesStore.activeMedicine.categoryId){
+        if (!medicinesStore.activeMedicine?.name || !medicinesStore.activeMedicine.categoryId) {
             toast.error(`Barcha maydonni to'ldiring!`, {
                 toastId: 'MedicinedEditToast'
             })
@@ -55,42 +54,27 @@ const EditMedicine = observer(() => {
         }
 
         try {
-            let formData = new FormData()
 
-            if(id !== 'create'){
-                formData.append('id',  id as string)
-            }
-            formData.append('price', medicinesStore.activeMedicine?.price.toString() || '')
-            formData.append('priceWithDiscount', medicinesStore.activeMedicine?.priceWithDiscount.toString() || '')
-            formData.append('totalCount', medicinesStore.activeMedicine?.totalCount.toString() || '')
-            formData.append('hasDiscount', medicinesStore.activeMedicine?.hasDiscount.toString() || '')
-            formData.append('description', medicinesStore.activeMedicine?.description || '')
-            formData.append('name', medicinesStore.activeMedicine?.name || '')
-            formData.append('currency', medicinesStore.activeMedicine?.currency || '')
-            formData.append('categoryId', medicinesStore.activeMedicine?.categoryId.toString() || '')
-            if(image){
-                formData.append('image', image)
+            if (id === 'create') {
+                await medicinesStore.create()
+            } else if (id && typeof +id === 'number') {
+                await medicinesStore.update(+id)
             }
 
-            if(id === 'create'){
-                await medicinesStore.create(formData)
-            }else{
-                await medicinesStore.update(formData)
-            }
 
             medicinesStore.resetActiveMedicine()
 
             navigate(-1)
 
 
-        }catch (e) {
+        } catch (e) {
             console.log(e)
         }
     }
 
     useEffect(() => {
 
-        if(!id || id==='create'){
+        if (!id || id === 'create') {
             return
         }
 
@@ -144,7 +128,8 @@ const EditMedicine = observer(() => {
                     },
                     {
                         value: medicinesStore.activeMedicine?.hasDiscount ? medicinesStore.activeMedicine?.hasDiscount : false,
-                        name: 'hasDiscount', onChange: (e) => handleChangeCheckbox(e as React.ChangeEvent<HTMLInputElement>),
+                        name: 'hasDiscount',
+                        onChange: (e) => handleChangeCheckbox(e as React.ChangeEvent<HTMLInputElement>),
                         elementType: 'checkbox',
                         label: `Chegirma qo'shish yoki qo'shmaslik`
                     },
@@ -152,6 +137,7 @@ const EditMedicine = observer(() => {
                         value: imgValue,
                         name: 'image', onChange: (e) => handleChangeImage(e as React.ChangeEvent<HTMLInputElement>),
                         type: 'file',
+                        elementType: 'file',
                         attrs: {accept: 'image/*'}
                     },
                     {
@@ -171,4 +157,4 @@ const EditMedicine = observer(() => {
     );
 });
 
-export { EditMedicine };
+export {EditMedicine};
