@@ -6,6 +6,7 @@ import {TableHeadPh} from "./TableHeadPh/TableHeadPh";
 import {TableBodyPh} from "./TableBodyPh/TableBodyPh";
 import {observer} from "mobx-react-lite";
 import {TablePaginationPh} from "./TablePaginationPh";
+import {useStore} from "../../../store";
 
 export interface IHeadCells {
     title: string
@@ -33,8 +34,11 @@ interface ITablePh {
 }
 
 export const TablePh: FC<ITablePh> = observer(({baseUrl, data, rowCells, headCells, handleDelete, rowsPerPage, count, page, setPage, setRowsPerPage}) => {
+
+    const {themeStore} = useStore()
+
     return (
-        <TableContainer component={Paper}>
+        <TableContainer component={Paper} sx={{color: themeStore.textColor, background: themeStore.bgColor, boxShadow: 'none'}}>
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
                 <TableHeadPh headCells={headCells} />
                 <TableBodyPh rowCells={rowCells} rows={data} baseUrl={baseUrl} handleDelete={handleDelete}/>

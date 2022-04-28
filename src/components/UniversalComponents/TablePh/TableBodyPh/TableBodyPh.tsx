@@ -1,10 +1,10 @@
 import React, {FC} from 'react';
 import TableBody from "@mui/material/TableBody";
 import TableRow from "@mui/material/TableRow";
-import TableCell from "@mui/material/TableCell";
 import {drawCell} from "../drawCell/drawCell";
 import {IRowCells} from "../index";
 import {observer} from "mobx-react-lite";
+import {TableCellPh} from "../styledComponents";
 
 interface ITableBodyPh {
     rowCells: IRowCells[]
@@ -26,12 +26,12 @@ export const TableBodyPh:FC<ITableBodyPh> = observer(({rowCells, rows, baseUrl, 
                 >
                     {
                         rowCells.map(cell => (
-                            <TableCell
+                            <TableCellPh
                                 key={cell.contentKey}
                                 align={cell.align ? cell.align : 'left'}
                             >
                                 {drawCell(row, cell, baseUrl, handleDelete)}
-                            </TableCell>
+                            </TableCellPh>
                         ))
                     }
                 </TableRow>

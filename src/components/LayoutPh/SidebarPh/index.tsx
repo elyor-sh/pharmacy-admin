@@ -1,8 +1,6 @@
 import * as React from "react";
 import {Link} from 'react-router-dom'
 import {List, ListItemButton, ListItemIcon, ListItemText} from "@mui/material";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import MailIcon from "@mui/icons-material/Mail";
 import {observer} from "mobx-react-lite";
 import {useStore} from "../../../store";
 import {sidebarLinks} from "./links";
@@ -23,6 +21,7 @@ export const SidebarPh = observer(() => {
                             minHeight: 48,
                             justifyContent: open ? 'initial' : 'center',
                             px: 2.5,
+                            color: themeStore.textColor
                         }}
                     >
                         <ListItemIcon
@@ -30,6 +29,7 @@ export const SidebarPh = observer(() => {
                                 minWidth: 0,
                                 mr: open ? 3 : 'auto',
                                 justifyContent: 'center',
+                                color: themeStore.textColor
                             }}
                         >
                             {link.icon}

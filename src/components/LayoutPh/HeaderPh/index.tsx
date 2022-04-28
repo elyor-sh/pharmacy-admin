@@ -11,12 +11,14 @@ const drawerWidth = 240;
 
 interface AppBarProps extends MuiAppBarProps {
     open?: boolean;
+    bgcolor?: string
 }
 
 const AppBar = styled(MuiAppBar, {
     shouldForwardProp: (prop) => prop !== 'open',
-})<AppBarProps>(({ theme, open }) => ({
+})<AppBarProps>(({ theme, open, bgcolor }) => ({
     zIndex: theme.zIndex.drawer + 1,
+    background: bgcolor,
     transition: theme.transitions.create(['width', 'margin'], {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen,
@@ -43,7 +45,7 @@ const HeaderPh = observer(() => {
 
     return (
         <>
-            <AppBar position="fixed" open={open}>
+            <AppBar position="fixed" open={open} bgcolor={themeStore.bgColor}>
                 <Toolbar>
                     <IconButton
                         color="inherit"
@@ -54,9 +56,9 @@ const HeaderPh = observer(() => {
                             marginRight: 5,
                         }}
                     >
-                        <MenuIcon />
+                        <MenuIcon sx={{color: themeStore.textColor}}/>
                     </IconButton>
-                    <Typography variant="h6" noWrap component="div">
+                    <Typography variant="h6" noWrap component="div" sx={{color: themeStore.textColor}}>
                         Logotip
                     </Typography>
                 </Toolbar>
