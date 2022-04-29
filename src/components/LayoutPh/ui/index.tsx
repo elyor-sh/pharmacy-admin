@@ -11,3 +11,12 @@ export const Wrapper = styled.div<IWrapper>`
   flex-direction: column;
   height: 100%;
 `
+
+interface ItemTextProps {
+    open?: boolean
+}
+
+export const ItemText = styled.span<ItemTextProps>`
+  display: ${(props) => props.open ? 'inline-block' : 'none'};
+  font-weight: 600;
+`

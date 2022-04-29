@@ -5,6 +5,7 @@ import {observer} from "mobx-react-lite";
 import {useStore} from "../../../store";
 import {sidebarLinks} from "./links";
 import classes from './SidebarPh.module.scss'
+import {ItemText} from "../ui";
 
 export const SidebarPh = observer(() => {
 
@@ -15,13 +16,13 @@ export const SidebarPh = observer(() => {
     return (
         <List sx={{marginTop: '60px'}}>
             {sidebarLinks.map((link, index) => (
-                <Link to={link.href}  key={link.text} className={classes.link}>
+                <Link to={link.href} key={link.text} className={classes.link}>
                     <ListItemButton
                         sx={{
                             minHeight: 48,
                             justifyContent: open ? 'initial' : 'center',
                             px: 2.5,
-                            color: themeStore.textColor
+                            color: themeStore.textColor,
                         }}
                     >
                         <ListItemIcon
@@ -34,7 +35,10 @@ export const SidebarPh = observer(() => {
                         >
                             {link.icon}
                         </ListItemIcon>
-                        <ListItemText primary={link.text} sx={{ opacity: open ? 1 : 0 }} />
+                        {/*<ListItemText primary={link.text} sx={{opacity: open ? 1 : 0, fontWeight: 600}}/>*/}
+                        <ItemText open={open}>
+                            {link.text}
+                        </ItemText>
                     </ListItemButton>
                 </Link>
             ))}

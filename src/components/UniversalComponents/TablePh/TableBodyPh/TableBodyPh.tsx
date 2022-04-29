@@ -4,7 +4,7 @@ import TableRow from "@mui/material/TableRow";
 import {drawCell} from "../drawCell/drawCell";
 import {IRowCells} from "../index";
 import {observer} from "mobx-react-lite";
-import {TableCellPh} from "../styledComponents";
+import {TableCellPh} from "../ui";
 
 interface ITableBodyPh {
     rowCells: IRowCells[]

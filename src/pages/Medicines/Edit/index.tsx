@@ -16,7 +16,18 @@ const EditMedicine = observer(() => {
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const name = e.target.name
-        const value = e.target.type === 'number' ? +e.target.value : e.target.value
+
+        const number = e.target.type === 'number'
+            ?
+            +e.target.value >= 0
+                ?
+                +e.target.value
+                :
+                0
+            :
+            0
+
+        const value = e.target.type === 'number' ? number : e.target.value
 
         if (medicinesStore.activeMedicine) {
             medicinesStore.setActiveMedicine({
@@ -47,7 +58,7 @@ const EditMedicine = observer(() => {
 
         if (!medicinesStore.activeMedicine?.name || !medicinesStore.activeMedicine.categoryId) {
             toast.error(`Barcha maydonni to'ldiring!`, {
-                toastId: 'MedicinedEditToast'
+                toastId: 'MedicineEditToast'
             })
 
             return

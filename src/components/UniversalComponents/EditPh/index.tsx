@@ -1,9 +1,21 @@
 import React, {FC} from 'react';
 import {useNavigate} from "react-router-dom";
-import {FormControl, FormControlLabel, Grid, InputLabel, MenuItem, Select, Switch, TextField} from "@mui/material";
+import {
+    FormControl,
+    FormControlLabel,
+    Grid,
+    InputLabel,
+    MenuItem,
+    Select,
+    Switch,
+    TextField
+} from "@mui/material";
 import classes from './EditPh.module.scss'
 import {SaveButtonPh} from "../../ButtonsPh/SaveButtonPh";
 import {CancelButtonPh} from "../../ButtonsPh/CancelButtonPh";
+import {TextFieldPh} from "../../Molecules/TextFieldPh";
+import {TextAreaPh} from "../../Molecules/TextAreaPh";
+import {SelectPh} from "../../Molecules/SelectPh";
 
 interface IInputs {
     elementType?: string
@@ -14,7 +26,7 @@ interface IInputs {
     label?: string
     placeholder?: string
     attrs?: any
-    options?:any
+    options?: any
     valueKey?: string
     labelKey?: string
 }
@@ -32,7 +44,7 @@ const EditPh: FC<IEditPh> = ({width, inputs, onSaveClick, resetClick}) => {
 
     const handleCancel = () => {
         navigate(-1)
-        if(resetClick){
+        if (resetClick) {
             resetClick()
         }
     }
@@ -40,7 +52,7 @@ const EditPh: FC<IEditPh> = ({width, inputs, onSaveClick, resetClick}) => {
     const drawElements = (element: IInputs) => {
         switch (element.elementType) {
             case undefined:
-                return <TextField
+                return <TextFieldPh
                     fullWidth
                     value={element.value}
                     name={element.name}
@@ -51,7 +63,7 @@ const EditPh: FC<IEditPh> = ({width, inputs, onSaveClick, resetClick}) => {
                     autoFocus={true}
                 />
             case 'file':
-                return <TextField
+                return <TextFieldPh
                     fullWidth
                     name={element.name}
                     onChange={element.onChange}
@@ -61,7 +73,7 @@ const EditPh: FC<IEditPh> = ({width, inputs, onSaveClick, resetClick}) => {
                     inputProps={{accept: element.attrs.accept}}
                 />
             case 'textarea':
-                return <textarea
+                return <TextAreaPh
                     name={element.name}
                     value={element.value}
                     onChange={element.onChange}
@@ -76,31 +88,28 @@ const EditPh: FC<IEditPh> = ({width, inputs, onSaveClick, resetClick}) => {
                         onChange={element.onChange}
                     />
                 }
-                 label={element.label}
+                                         label={element.label}
                 />
             case 'select':
-               return <FormControl fullWidth>
-                    <InputLabel id="demo-simple-select-label">{element.label}</InputLabel>
-                    <Select
-                        labelId="demo-simple-select-label"
-                        id="demo-simple-select"
-                        value={element.value}
-                        label={element.label}
-                        onChange={element.onChange}
-                        name={element.name}
-                    >
-                        {
-                            element.options.map((option: any) => {
-                                return  <MenuItem
-                                    value={option[element?.valueKey || '']}
-                                    key={option[element?.valueKey || '']}
-                                >
-                                    {option[element?.labelKey || '']}
-                                </MenuItem>
-                            })
-                        }
-                    </Select>
-                </FormControl>
+                return <SelectPh
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={element.value}
+                    label={element.label}
+                    onChange={element.onChange}
+                    name={element.name}
+                >
+                    {
+                        element.options.map((option: any) => {
+                            return <MenuItem
+                                value={option[element?.valueKey || '']}
+                                key={option[element?.valueKey || '']}
+                            >
+                                {option[element?.labelKey || '']}
+                            </MenuItem>
+                        })
+                    }
+                </SelectPh>
             default:
                 return null
         }
