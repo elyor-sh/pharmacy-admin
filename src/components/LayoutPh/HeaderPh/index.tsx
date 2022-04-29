@@ -1,11 +1,12 @@
 import React from 'react';
-import { IconButton, Toolbar, Typography} from "@mui/material";
+import {Grid, IconButton, Toolbar, Typography} from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import {styled} from "@mui/material/styles";
 import MuiAppBar from "@mui/material/AppBar";
 import {useStore} from "../../../store";
 import {observer} from "mobx-react-lite";
 import {AppBarProps as MuiAppBarProps} from "@mui/material/AppBar/AppBar";
+import {HeaderActions} from "./actions";
 
 const drawerWidth = 240;
 
@@ -16,7 +17,7 @@ interface AppBarProps extends MuiAppBarProps {
 
 const AppBar = styled(MuiAppBar, {
     shouldForwardProp: (prop) => prop !== 'open',
-})<AppBarProps>(({ theme, open, bgcolor }) => ({
+})<AppBarProps>(({theme, open, bgcolor}) => ({
     zIndex: theme.zIndex.drawer + 1,
     background: bgcolor,
     transition: theme.transitions.create(['width', 'margin'], {
@@ -33,6 +34,11 @@ const AppBar = styled(MuiAppBar, {
     }),
 }));
 
+const WrapperHead = styled('div')(() => ({
+    display: 'flex',
+    alignItems: 'center'
+}))
+
 const HeaderPh = observer(() => {
 
     const {themeStore} = useStore()
@@ -46,21 +52,28 @@ const HeaderPh = observer(() => {
     return (
         <>
             <AppBar position="fixed" open={open} bgcolor={themeStore.bgColor}>
-                <Toolbar>
-                    <IconButton
-                        color="inherit"
-                        aria-label="open drawer"
-                        onClick={handleDrawer}
-                        edge="start"
-                        sx={{
-                            marginRight: 5,
-                        }}
-                    >
-                        <MenuIcon sx={{color: themeStore.textColor}}/>
-                    </IconButton>
-                    <Typography variant="h6" noWrap component="div" sx={{color: themeStore.textColor}}>
-                        Logotip
-                    </Typography>
+                <Toolbar sx={{alignItems: 'center', justifyContent: 'space-between'}}>
+                    <WrapperHead>
+                        <IconButton
+                            color="inherit"
+                            aria-label="open drawer"
+                            onClick={handleDrawer}
+                            edge="start"
+                            sx={{
+                                marginRight: 5,
+                            }}
+                        >
+                            <MenuIcon sx={{color: themeStore.textColor}}/>
+                        </IconButton>
+                        <Typography variant="h6" noWrap component="div" sx={{color: themeStore.textColor}}>
+                            Logotip
+                        </Typography>
+                    </WrapperHead>
+
+
+                    <HeaderActions/>
+
+
                 </Toolbar>
             </AppBar>
         </>

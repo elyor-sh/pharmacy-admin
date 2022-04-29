@@ -1,14 +1,8 @@
 import React, {FC} from 'react';
 import {useNavigate} from "react-router-dom";
 import {
-    FormControl,
-    FormControlLabel,
     Grid,
-    InputLabel,
     MenuItem,
-    Select,
-    Switch,
-    TextField
 } from "@mui/material";
 import classes from './EditPh.module.scss'
 import {SaveButtonPh} from "../../ButtonsPh/SaveButtonPh";
