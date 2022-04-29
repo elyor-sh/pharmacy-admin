@@ -18,7 +18,7 @@ const TextFieldPh: React.FC<TextFieldPhProps> = observer(({...props}) => {
                 {
                     color: themeStore.textColor,
                     '& .MuiOutlinedInput-root.Mui-focused fieldset, & .MuiInputBase-root:hover fieldset, & .MuiInputBase-root fieldset': {
-                        border: `1px solid ${themeStore.textColor}`,
+                        border: `1px solid ${themeStore.tableCellBorder}`,
                     },
                     '& label.Mui-focused, & label, & input': {
                         color: `${themeStore.textColor}`

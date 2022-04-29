@@ -10,12 +10,13 @@ interface SelectPhProps extends SelectProps {
 
 interface IStyledSelect extends SelectProps {
     textcolor?: string
+    bordercolor?: string
 }
 
-const StyledSelect = styled(Select)<IStyledSelect>(({textcolor}) => ({
+const StyledSelect = styled(Select)<IStyledSelect>(({textcolor, bordercolor}) => ({
     color: textcolor,
-    '& fieldset.MuiOutlinedInput-notchedOutline, &:hover fieldset.MuiOutlinedInput-notchedOutline, &:focus fieldset.MuiOutlinedInput-notchedOutline': {
-        borderColor: textcolor,
+    '& fieldset.MuiOutlinedInput-notchedOutline, &:hover fieldset.MuiOutlinedInput-notchedOutline, &:focus fieldset.MuiOutlinedInput-notchedOutline, &.Mui-focused fieldset.MuiOutlinedInput-notchedOutline': {
+        borderColor: bordercolor,
         borderWidth: '1px'
     },
     '& svg.MuiSelect-icon': {
@@ -44,6 +45,7 @@ const SelectPh: React.FC<SelectPhProps> = observer(({fullWidth,...props}) => {
                 <StyledLabel textcolor={themeStore.textColor}>{props.label}</StyledLabel>
                 <StyledSelect
                     textcolor={themeStore.textColor}
+                    bordercolor={themeStore.tableCellBorder}
                     {...props}
                 >
                     {

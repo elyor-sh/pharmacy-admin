@@ -16,6 +16,7 @@ import {CancelButtonPh} from "../../ButtonsPh/CancelButtonPh";
 import {TextFieldPh} from "../../Molecules/TextFieldPh";
 import {TextAreaPh} from "../../Molecules/TextAreaPh";
 import {SelectPh} from "../../Molecules/SelectPh";
+import {CheckBoxPh} from "../../Molecules/CheckBoxPh";
 
 interface IInputs {
     elementType?: string
@@ -81,14 +82,11 @@ const EditPh: FC<IEditPh> = ({width, inputs, onSaveClick, resetClick}) => {
                     placeholder={element.placeholder}
                 />
             case 'checkbox' :
-                return <FormControlLabel control={
-                    <Switch
-                        name={element.name}
-                        checked={element.value}
-                        onChange={element.onChange}
-                    />
-                }
-                                         label={element.label}
+                return <CheckBoxPh
+                    name={element.name}
+                    checked={element.value}
+                    onChange={element.onChange}
+                    label={element.label}
                 />
             case 'select':
                 return <SelectPh

@@ -6,12 +6,13 @@ import {observer} from "mobx-react-lite";
 interface TextAreaPhProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {}
 
 interface IStyledTextArea extends TextAreaPhProps {
-    color: string
+    color?: string
+    bordercolor?: string
 }
 
-const StyledTextArea = styled('textarea')<IStyledTextArea>(({color}) => ({
+const StyledTextArea = styled('textarea')<IStyledTextArea>(({color, bordercolor}) => ({
     color: color,
-    border: `1px solid ${color}`,
+    border: `1px solid ${bordercolor}`,
     outline: 'none',
     background: 'transparent',
     '&::placeholder': {
@@ -25,6 +26,7 @@ const TextAreaPh:React.FC<TextAreaPhProps> = observer(({...props}) => {
 
     return (
         <StyledTextArea
+            bordercolor={themeStore.tableCellBorder}
             color={themeStore.textColor}
             {...props}
         />
