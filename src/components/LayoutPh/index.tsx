@@ -8,6 +8,7 @@ import {useStore} from "../../store";
 import HeaderPh from "./HeaderPh";
 import {SidebarPh} from "./SidebarPh";
 import {Wrapper} from "./ui";
+import {ThemeSettings} from "../ThemeSettings";
 
 const drawerWidth = 240;
 
@@ -68,6 +69,7 @@ export const LayoutPh = observer(() => {
 
     return (
         <Wrapper bgColor={themeStore.bgColor}>
+            <ThemeSettings />
         <Box sx={{ display: 'flex' }}>
             <CssBaseline />
             <HeaderPh/>

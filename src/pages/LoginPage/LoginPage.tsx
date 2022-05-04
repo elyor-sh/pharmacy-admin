@@ -1,20 +1,41 @@
-import * as React from 'react';
-import {Avatar,  Button, CssBaseline, TextField, FormControlLabel, Checkbox, Paper, Box, Grid, Typography} from '@mui/material'
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import {CopyRightPh} from "../../components/CopyRightPh/CopyRightPh";
-import {useEffect, useState} from "react";
-import {Validate} from "../../helpers/validate";
-import {toast} from "react-toastify";
-import {useStore} from "../../store";
+import React, {useEffect, useState} from 'react';
 import {useNavigate} from "react-router-dom";
 import {observer} from "mobx-react-lite";
+import {
+    Avatar,
+    Button,
+    CssBaseline,
+    Box,
+    Grid,
+    GridProps
+} from '@mui/material'
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import {createTheme, styled, ThemeProvider} from '@mui/material/styles';
+import {toast} from "react-toastify";
+
+import {CopyRightPh} from "../../components/CopyRightPh/CopyRightPh";
+import {Validate} from "../../helpers/validate";
+import {useStore} from "../../store";
+import {TextFieldPh} from "../../components/Molecules/TextFieldPh";
+import {CheckBoxPh} from "../../components/Molecules/CheckBoxPh";
+import {TypographyPh} from "../../components/Molecules/TypographyPh";
 
 const theme = createTheme();
 
+interface WrapperProps extends GridProps {
+    bgcolor: string
+    component?: React.ReactNode;
+    elevation?: Number;
+    square?: boolean;
+}
+
+const Wrapper = styled(Grid)<WrapperProps>(({bgcolor}) => ({
+    backgroundColor: bgcolor
+}))
+
 export const LoginPage = observer(() => {
 
-    const {currentUserStore} = useStore()
+    const {currentUserStore, themeStore} = useStore()
 
     const {user: currentUser} = currentUserStore
 
@@ -55,7 +76,7 @@ export const LoginPage = observer(() => {
 
     return (
         <ThemeProvider theme={theme}>
-            <Grid container component="main" sx={{ height: '100vh' }}>
+            <Wrapper container bgcolor={themeStore.bgColor} sx={{ height: '100vh', background: themeStore.bgColor }}>
                 <CssBaseline />
                 <Grid
                     item
@@ -71,7 +92,7 @@ export const LoginPage = observer(() => {
                         backgroundPosition: 'center',
                     }}
                 />
-                <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+                <Wrapper bgcolor={themeStore.bgColor} item xs={12} sm={8} md={5} >
                     <Box
                         sx={{
                             my: 8,
@@ -84,11 +105,11 @@ export const LoginPage = observer(() => {
                         <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
                             <LockOutlinedIcon />
                         </Avatar>
-                        <Typography component="h1" variant="h5">
+                        <TypographyPh component="h1" variant="h5">
                             Kirish
-                        </Typography>
+                        </TypographyPh>
                         <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
-                            <TextField
+                            <TextFieldPh
                                 margin="normal"
                                 required
                                 fullWidth
@@ -98,7 +119,7 @@ export const LoginPage = observer(() => {
                                 autoComplete="username"
                                 onChange={e => setUser({...user, username: e.target.value})}
                             />
-                            <TextField
+                            <TextFieldPh
                                 margin="normal"
                                 required
                                 fullWidth
@@ -108,7 +129,7 @@ export const LoginPage = observer(() => {
                                 autoComplete="email"
                                 onChange={e => setUser({...user, email: e.target.value})}
                             />
-                            <TextField
+                            <TextFieldPh
                                 margin="normal"
                                 required
                                 fullWidth
@@ -119,8 +140,7 @@ export const LoginPage = observer(() => {
                                 autoComplete="current-password"
                                 onChange={e => setUser({...user, password: e.target.value})}
                             />
-                            <FormControlLabel
-                                control={<Checkbox value="remember" color="primary" />}
+                            <CheckBoxPh
                                 label="Eslab qolish"
                             />
                             <Button
@@ -134,8 +154,8 @@ export const LoginPage = observer(() => {
                             <CopyRightPh sx={{ mt: 5 }} />
                         </Box>
                     </Box>
-                </Grid>
-            </Grid>
+                </Wrapper>
+            </Wrapper>
         </ThemeProvider>
     );
 })

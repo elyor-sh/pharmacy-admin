@@ -45,7 +45,7 @@ const HeaderActions = () => {
     return (
         <>
             <WrapperIcons>
-            <IconButton>
+            <IconButton onClick={(e: React.KeyboardEvent | React.MouseEvent) => themeStore.setSettingsDrawer(e, !themeStore.settingsDrawer)}>
                 <SettingsOutlinedIcon sx={{color: themeStore.textColor}}/>
             </IconButton>
 
