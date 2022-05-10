@@ -2,6 +2,7 @@ import React, {FC} from 'react';
 import {styled} from "@mui/material/styles";
 import {Button, ButtonProps} from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
+import {observer} from "mobx-react-lite";
 import {useStore} from "../../store";
 
 interface AddButtonProps {
@@ -24,7 +25,7 @@ interface IAddButtonPh extends ButtonProps {
     children?: React.ReactNode
 }
 
-const AddButtonPh:FC<IAddButtonPh> = ({children, ...props}) => {
+const AddButtonPh:FC<IAddButtonPh> = observer(({children, ...props}) => {
 
     const {themeStore} = useStore()
 
@@ -39,6 +40,6 @@ const AddButtonPh:FC<IAddButtonPh> = ({children, ...props}) => {
             {children}
         </AddButton>
     );
-};
+});
 
 export { AddButtonPh };

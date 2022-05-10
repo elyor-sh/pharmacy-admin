@@ -1,7 +1,5 @@
 import React, {FC} from 'react';
 import Table from '@mui/material/Table';
-import TableContainer from '@mui/material/TableContainer';
-import Paper from '@mui/material/Paper';
 import {TableHeadPh} from "./TableHeadPh/TableHeadPh";
 import {TableBodyPh} from "./TableBodyPh/TableBodyPh";
 import {observer} from "mobx-react-lite";
@@ -40,7 +38,7 @@ export const TablePh: FC<ITablePh> = observer(({baseUrl, data, rowCells, headCel
 
     return (
         <StyledTableContainer
-            textcolor={themeStore.textColor}
+            textcolor={themeStore.tableFontColor}
             bgcolor={themeStore.bgColor}
             bordercolor={themeStore.tableCellBorder}
         >

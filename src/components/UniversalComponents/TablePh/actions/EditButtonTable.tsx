@@ -3,13 +3,14 @@ import {useNavigate} from "react-router-dom";
 import {IconButton, Tooltip} from "@mui/material";
 import EditIcon from '@mui/icons-material/EditOutlined';
 import {useStore} from "../../../../store";
+import {observer} from "mobx-react-lite";
 
 interface IBaseActions {
     baseUrl: string
     id: number
 }
 
-export const EditButtonTable: FC<IBaseActions> = ({baseUrl, id})  => {
+export const EditButtonTable: FC<IBaseActions> = observer(({baseUrl, id})  => {
 
     const navigate = useNavigate()
 
@@ -26,5 +27,5 @@ export const EditButtonTable: FC<IBaseActions> = ({baseUrl, id})  => {
         </IconButton>
         </Tooltip>
     )
-}
+})
 

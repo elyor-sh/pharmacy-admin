@@ -1,5 +1,5 @@
 import React from 'react';
-import {Grid, IconButton, Toolbar, Typography} from "@mui/material";
+import { IconButton, Toolbar, Typography} from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import {styled} from "@mui/material/styles";
 import MuiAppBar from "@mui/material/AppBar";
@@ -51,7 +51,7 @@ const HeaderPh = observer(() => {
 
     return (
         <>
-            <AppBar position="fixed" open={open} bgcolor={themeStore.bgColor}>
+            <AppBar position="fixed" open={open} bgcolor={themeStore.headerBgColor}>
                 <Toolbar sx={{alignItems: 'center', justifyContent: 'space-between'}}>
                     <WrapperHead>
                         <IconButton
@@ -63,16 +63,14 @@ const HeaderPh = observer(() => {
                                 marginRight: 5,
                             }}
                         >
-                            <MenuIcon sx={{color: themeStore.textColor}}/>
+                            <MenuIcon sx={{color: themeStore.headerTextColor}}/>
                         </IconButton>
-                        <Typography variant="h6" noWrap component="div" sx={{color: themeStore.textColor}}>
+                        <Typography variant="h6" noWrap component="div" sx={{color: themeStore.headerTextColor}}>
                             Logotip
                         </Typography>
                     </WrapperHead>
 
-
                     <HeaderActions/>
-
 
                 </Toolbar>
             </AppBar>

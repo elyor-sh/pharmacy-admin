@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {Outlet} from 'react-router-dom'
-import { styled, Theme, CSSObject } from '@mui/material/styles';
+import {styled, Theme, CSSObject} from '@mui/material/styles';
 import {Box, CssBaseline} from '@mui/material'
 import MuiDrawer from '@mui/material/Drawer';
 import {observer} from "mobx-react-lite";
@@ -35,7 +35,7 @@ const closedMixin = (theme: Theme, bgcolor: string): CSSObject => ({
     },
 });
 
-const DrawerHeader = styled('div')<{bgcolor: string}>(({ theme, bgcolor }) => ({
+const DrawerHeader = styled('div')<{ bgcolor: string }>(({theme, bgcolor}) => ({
     background: bgcolor,
     display: 'flex',
     alignItems: 'center',
@@ -45,8 +45,8 @@ const DrawerHeader = styled('div')<{bgcolor: string}>(({ theme, bgcolor }) => ({
     ...theme.mixins.toolbar,
 }));
 
-const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })<{bgcolor: string}>(
-    ({ theme, open, bgcolor}) => ({
+const Drawer = styled(MuiDrawer, {shouldForwardProp: (prop) => prop !== 'open'})<{ bgcolor: string }>(
+    ({theme, open, bgcolor}) => ({
         width: drawerWidth,
         flexShrink: 0,
         whiteSpace: 'nowrap',
@@ -68,19 +68,19 @@ export const LayoutPh = observer(() => {
     const {themeStore} = useStore()
 
     return (
-        <Wrapper bgColor={themeStore.bgColor}>
-            <ThemeSettings />
-        <Box sx={{ display: 'flex' }}>
-            <CssBaseline />
-            <HeaderPh/>
-            <Drawer variant="permanent" open={themeStore.openMenu} bgcolor={themeStore.bgColor}>
-                <SidebarPh />
-            </Drawer>
-            <Box component="main" sx={{ flexGrow: 1, p: 3, flex: '1 1 auto' }}>
-                <DrawerHeader bgcolor={themeStore.bgColor}/>
-               <Outlet />
+        <Wrapper bgcolor={themeStore.bgColor}>
+            <ThemeSettings/>
+            <Box sx={{display: 'flex'}}>
+                <CssBaseline/>
+                <HeaderPh/>
+                <Drawer variant="permanent" open={themeStore.openMenu} bgcolor={themeStore.navBarBgColor}>
+                    <SidebarPh/>
+                </Drawer>
+                <Box component="main" sx={{flexGrow: 1, p: 3, flex: '1 1 auto'}}>
+                    <DrawerHeader bgcolor={themeStore.bgColor}/>
+                    <Outlet/>
+                </Box>
             </Box>
-        </Box>
         </Wrapper>
     );
 })
