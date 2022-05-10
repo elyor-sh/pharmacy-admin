@@ -5,6 +5,8 @@ import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined
 import {useNavigate} from "react-router-dom";
 import {useStore} from "../../../store";
 import {styled} from "@mui/material/styles";
+import {ThemeModeSwitch} from "../../Molecules/ThemeModeSwitch";
+import {observer} from "mobx-react-lite";
 
 const settings = [
     {text: `Shaxsiy kabinet`, href: '/profile'},
@@ -15,10 +17,10 @@ const WrapperIcons = styled('div')(() => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
-    maxWidth: '100px'
+    maxWidth: '180px'
 }))
 
-const HeaderActions = () => {
+const HeaderActions = observer(() => {
 
     const navigate = useNavigate()
 
@@ -35,7 +37,7 @@ const HeaderActions = () => {
     const handleCloseUserMenu = (href: string) => {
         setAnchorElUser(null);
 
-        if(href === '/login'){
+        if (href === '/login') {
             currentUserStore.logout()
         }
 
@@ -45,18 +47,21 @@ const HeaderActions = () => {
     return (
         <>
             <WrapperIcons>
-            <IconButton onClick={(e: React.KeyboardEvent | React.MouseEvent) => themeStore.setSettingsDrawer(e, !themeStore.settingsDrawer)}>
-                <SettingsOutlinedIcon sx={{color: themeStore.textColor}}/>
-            </IconButton>
+                <ThemeModeSwitch/>
 
-            <IconButton onClick={handleOpenUserMenu}>
-                <AccountCircleOutlinedIcon sx={{color: themeStore.textColor}}/>
-            </IconButton>
+                <IconButton
+                    onClick={(e: React.KeyboardEvent | React.MouseEvent) => themeStore.setSettingsDrawer(e, !themeStore.settingsDrawer)}>
+                    <SettingsOutlinedIcon sx={{color: themeStore.headerAssetColor}}/>
+                </IconButton>
+
+                <IconButton onClick={handleOpenUserMenu}>
+                    <AccountCircleOutlinedIcon sx={{color: themeStore.headerAssetColor}}/>
+                </IconButton>
             </WrapperIcons>
 
 
             <Menu
-                sx={{ mt: '45px' }}
+                sx={{mt: '45px'}}
                 id="menu-appbar"
                 anchorEl={anchorElUser}
                 anchorOrigin={{
@@ -79,6 +84,6 @@ const HeaderActions = () => {
             </Menu>
         </>
     );
-};
+});
 
-export { HeaderActions };
+export {HeaderActions};

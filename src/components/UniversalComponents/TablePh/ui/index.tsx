@@ -1,5 +1,5 @@
 import {styled as styledMUI} from "@mui/material/styles";
-import {Paper, PaperProps, TableCell, TableCellProps, TablePaginationProps} from "@mui/material";
+import {Paper, PaperProps, TableCell, TableCellProps} from "@mui/material";
 import React from "react";
 import {useStore} from "../../../../store";
 import {observer} from "mobx-react-lite";
@@ -29,7 +29,7 @@ export const TableCellPh: React.FC<ITableCellPh> = observer(({children, ...props
     const {themeStore} = useStore()
 
     return (
-        <StyledCell bordercolor={themeStore.tableCellBorder} textcolor={themeStore.textColor} {...props}>
+        <StyledCell bordercolor={themeStore.tableCellBorder} textcolor={themeStore.tableFontColor} {...props}>
             {children}
         </StyledCell>
     )

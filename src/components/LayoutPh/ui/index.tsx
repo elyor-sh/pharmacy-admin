@@ -1,22 +1,24 @@
-import styled from "styled-components";
+import {styled} from "@mui/material/styles";
+
 
 interface IWrapper {
-    bgColor?: string
+    bgcolor?: string
 }
 
-export const Wrapper = styled.div<IWrapper>`
-  background-color: ${(props) => props.bgColor || '#fff'};
-  min-height: 100%;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-`
+export const Wrapper = styled('div')<IWrapper>(({bgcolor}) => ({
+    backgroundColor: bgcolor || '#fff',
+    minHeight: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    height: '100%'
+}))
+
 
 interface ItemTextProps {
     open?: boolean
 }
 
-export const ItemText = styled.span<ItemTextProps>`
-  display: ${(props) => props.open ? 'inline-block' : 'none'};
-  font-weight: 600;
-`
+export const ItemText = styled('span')<ItemTextProps>(({open}) => ({
+    display: open ? 'inline-block' : 'none',
+    fontWeight: 600
+}))
