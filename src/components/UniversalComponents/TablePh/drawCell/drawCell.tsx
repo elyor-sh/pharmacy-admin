@@ -38,7 +38,7 @@ export const drawCell = (row: any, cell: IRowCells, baseUrl: string, handleDelet
             }
 
             return <>
-                <img src={`${baseURL}/${row[cell.contentKey]}`} width={'50px'} height={'50px'} alt="img"/>
+                <img src={`${row[cell.contentKey]}`} width={'50px'} height={'50px'} alt="img"/>
             </>
 
         default:
